@@ -140,3 +140,86 @@ moderator1.sendMessage(user1, "Your message was banned");
 // unbann
 
 // Створити  об'єкт класу Admin, протистувати роботу bann, unbann
+class Admin extends Moderator {
+  constructor(name, surname, age, isMale, email, permission, category) {
+    super(name, surname, age, isMale, email, permission);
+    this.category = category;
+  }
+
+  bann(user) {
+    user.isBanned = true;
+    console.log(`You were banned by ${this.getFullName()}`);
+  }
+  unbann(user) {
+    user.isBanned = false;
+    console.log(`You were unbanned by ${this.getFullName()}`);
+  }
+  // перевизначк
+  sendMessage(user, message) {
+    console.log(
+      `Admin ${this.getFullName()} send message "${message}" to ${user.getFullName()}`
+    );
+  }
+}
+const admin1 = new Admin(
+  "Admin",
+  "Adminovych",
+  30,
+  true,
+  "admin@gmail.com",
+  permission,
+  1
+);
+console.log("admin1.getFullName =>", admin1.getFullName());
+admin1.bann(user1);
+admin1.unbann(user1);
+
+/**************************************************************/
+// admin1.sendMessage();
+// moderator1.sendMessage();
+
+// абстрактний клас - клас без реалізації
+class Figure {
+  constructor(name) {
+    this.name = name;
+  }
+  getAria() {
+    return null;
+  }
+}
+
+class Square extends Figure {
+  constructor(sideLenght) {
+    super("square");
+    this.a = sideLenght;
+  }
+  getAria() {
+    return this.a * this.a;
+  }
+}
+
+const square1 = new Square(6);
+console.log("square1.getAria() :>> ", square1.getAria());
+
+// Реалізувати клас для Rectangle
+class Rectangle extends Figure {
+  constructor(sideLenght, sideLenght1) {
+    super("Rectangle");
+    this.a = sideLenght;
+    this.b = sideLenght1;
+  }
+  getAria() {
+    return this.a * this.b;
+  }
+}
+
+const Rectangle1 = new Rectangle(6, 5);
+console.log("square1.getAria() :>> ", Rectangle1.getAria());
+
+function calcAria(fig) {
+  // if(fig instanceof Square || fig instanceof Rectangle)
+  if (fig instanceof Figure) {
+    return fig.getAria();
+  }
+  console.log("fig is not a Figure");
+}
